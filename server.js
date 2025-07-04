@@ -1,9 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
-
 const app = express();
 
-// Manual CORS middleware
+// ✅ Manual CORS Middleware
 app.use((req, res, next) => {
   const allowedOrigins = [
     "https://front-lake-two.vercel.app",
@@ -12,7 +11,6 @@ app.use((req, res, next) => {
     "https://front-manals-projects-114395d1.vercel.app",
     "http://localhost:3000"
   ];
-
   const origin = req.headers.origin;
   if (allowedOrigins.includes(origin)) {
     res.setHeader("Access-Control-Allow-Origin", origin);
@@ -20,53 +18,40 @@ app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   }
-
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(200);
-  }
-
+  if (req.method === "OPTIONS") return res.sendStatus(200);
   next();
 });
 
 app.use(express.json());
 
-// Routes imports
-const invoiceRoutes = require("./routes/invoiceRoutes");
-const authRoutes = require("./routes/auth.route");
-const stockInRoutes = require("./routes/stockinRoutes");
-const stockOutRoutes = require("./routes/stockoutRoutes");
-const clientRoutes = require("./routes/clientRoutes");
-const vendorRoutes = require("./routes/vendorRoutes");
-const productRoutes = require("./routes/productRoutes");
-const purchaseOrderRoutes = require("./routes/purchaseOrderRoutes");
-const paymentEntryRoutes = require("./routes/paymentEntryRoutes");
-const reportRoutes = require("./routes/reportRoutes");
+// ✅ Routes
+app.use("/api/auth", require("./routes/auth.route"));
+app.use("/api/clients", require("./routes/clientRoutes"));
+app.use("/api/products", require("./routes/productRoutes"));
+app.use("/api/stockin", require("./routes/stockinRoutes"));
+app.use("/api/stockout", require("./routes/stockoutRoutes"));
+app.use("/api/vendors", require("./routes/vendormanagementRoutes"));
+app.use("/api/purchaseorders", require("./routes/purchaseorderRoutes"));
+app.use("/api/reports", require("./routes/reportRoutes"));
+app.use("/api/invoices", require("./routes/invoiceRoutes"));
+app.use("/api/paymententries", require("./routes/paymententrieRoutes"));
+app.use("/api/supplierportal/orders", require("./routes/orderRoutes"));
+app.use("/api/supplierportal/agreements", require("./routes/agreementRoutes"));
+app.use("/api/supplierportal/inventory", require("./routes/inventoryRoutes"));
+app.use("/api/supplierportal/invoicespayments", require("./routes/invoicespaymentRoutes"));
+app.use("/api/supplierportal/shipments", require("./routes/shipmentRoutes"));
+app.use("/api/supplierportal/profile", require("./routes/profileRoutes"));
 
-// Use routes
-app.use("/api/invoices", invoiceRoutes);
-app.use("/api/auth", authRoutes);
-app.use("/api/stockin", stockInRoutes);
-app.use("/api/stockout", stockOutRoutes);
-app.use("/api/clients", clientRoutes);
-app.use("/api/vendors", vendorRoutes);
-app.use("/api/products", productRoutes);
-app.use("/api/purchaseorders", purchaseOrderRoutes);
-app.use("/api/paymententries", paymentEntryRoutes);
-app.use("/api/reports", reportRoutes);
-
-// MongoDB connection
+// ✅ MongoDB
 mongoose
-  .connect(
-    "mongodb+srv://mughlu16029:mushi@cluster0.t1tgyhk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
+  .connect("mongodb+srv://mughlu16029:mushi@cluster0.t1tgyhk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => console.log("✅ MongoDB Connected"))
   .catch((err) => console.error("❌ MongoDB Connection Error:", err));
 
-// Start server
+// ✅ Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
