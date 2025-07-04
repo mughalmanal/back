@@ -10,21 +10,15 @@ app.use((req, res, next) => {
     "https://front-h6fw2530u-manals-projects-114395d1.vercel.app",
     "https://front-git-main-manals-projects-114395d1.vercel.app",
     "https://front-manals-projects-114395d1.vercel.app",
-    "http://localhost:3000",
+    "http://localhost:3000"
   ];
 
   const origin = req.headers.origin;
   if (allowedOrigins.includes(origin)) {
     res.setHeader("Access-Control-Allow-Origin", origin);
     res.setHeader("Access-Control-Allow-Credentials", "true");
-    res.setHeader(
-      "Access-Control-Allow-Methods",
-      "GET,POST,PUT,DELETE,OPTIONS"
-    );
-    res.setHeader(
-      "Access-Control-Allow-Headers",
-      "Content-Type, Authorization"
-    );
+    res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   }
 
   if (req.method === "OPTIONS") {
@@ -36,31 +30,31 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-// Import routes with exact filenames (capital R, plural)
-const authroutes = require("./routes/authroutes");
+// Routes imports
 const invoiceRoutes = require("./routes/invoiceRoutes");
+const authRoutes = require("./routes/auth.route");
 const stockInRoutes = require("./routes/stockinRoutes");
 const stockOutRoutes = require("./routes/stockoutRoutes");
-const productRoutes = require("./routes/productsRoutes");
-const vendorRoutes = require("./routes/vendorsRoutes");
-const clientRoutes = require("./routes/clientsRoutes");
-const purchaseOrderRoutes = require("./routes/purchaseOrdersRoutes");
-const paymentEntryRoutes = require("./routes/paymentEntriesRoutes");
-const reportRoutes = require("./routes/reportsRoutes");
+const clientRoutes = require("./routes/clientRoutes");
+const vendorRoutes = require("./routes/vendorRoutes");
+const productRoutes = require("./routes/productRoutes");
+const purchaseOrderRoutes = require("./routes/purchaseOrderRoutes");
+const paymentEntryRoutes = require("./routes/paymentEntryRoutes");
+const reportRoutes = require("./routes/reportRoutes");
 
-// Register routes
-app.use("/api/auth", authroutes);
+// Use routes
 app.use("/api/invoices", invoiceRoutes);
-app.use("/api/stock-in", stockInRoutes);
-app.use("/api/stock-out", stockOutRoutes);
-app.use("/api/products", productRoutes);
-app.use("/api/vendors", vendorRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/stockin", stockInRoutes);
+app.use("/api/stockout", stockOutRoutes);
 app.use("/api/clients", clientRoutes);
-app.use("/api/purchase-orders", purchaseOrderRoutes);
-app.use("/api/payment-entries", paymentEntryRoutes);
+app.use("/api/vendors", vendorRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/purchaseorders", purchaseOrderRoutes);
+app.use("/api/paymententries", paymentEntryRoutes);
 app.use("/api/reports", reportRoutes);
 
-// Connect to MongoDB
+// MongoDB connection
 mongoose
   .connect(
     "mongodb+srv://mughlu16029:mushi@cluster0.t1tgyhk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
