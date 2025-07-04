@@ -4,7 +4,7 @@ require("dotenv").config();
 
 const app = express();
 
-// ✅ CORS setup
+// CORS setup
 app.use((req, res, next) => {
   const allowedOrigins = [
     "https://front-lake-two.vercel.app",
@@ -28,7 +28,7 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-// ✅ Import routes
+// Routes config: adjust filenames here exactly as your files are named
 const routes = [
   { path: "/api/clients", file: "./routes/clientRoutes" },
   { path: "/api/vendors", file: "./routes/vendormanagementRoutes" },
@@ -48,19 +48,27 @@ const routes = [
   { path: "/api/shipments", file: "./routes/shipmentRoutes" },
 ];
 
-routes.forEach((r) => {
-  app.use(r.path, require(r.file));
+// Load all routes
+routes.forEach(({ path, file }) => {
+  try {
+    const router = require(file);
+    if (!router) throw new Error(`No router exported from ${file}`);
+    app.use(path, router);
+    console.log(`Mounted route ${path} -> ${file}`);
+  } catch (err) {
+    console.error(`Failed to load route ${file}:`, err.message);
+  }
 });
 
-// ✅ MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://<username>:<password>@cluster0.t1tgyhk.mongodb.net/?retryWrites=true&w=majority", {
+// MongoDB connection
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
 .then(() => console.log("✅ MongoDB Connected"))
-.catch((err) => console.error("❌ MongoDB Error:", err));
+.catch(err => console.error("❌ MongoDB connection error:", err));
 
-// ✅ Start server
+// Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
