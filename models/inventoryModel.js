@@ -1,0 +1,1 @@
+// inventoryModel.js - Placeholder

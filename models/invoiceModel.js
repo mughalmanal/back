@@ -1,0 +1,1 @@
+// invoiceModel.js - Placeholder

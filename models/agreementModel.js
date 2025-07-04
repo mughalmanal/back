@@ -1,0 +1,1 @@
+// agreementModel.js - Placeholder

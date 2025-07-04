@@ -1,0 +1,1 @@
+// clientModel.js - Placeholder

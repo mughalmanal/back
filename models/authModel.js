@@ -1,0 +1,1 @@
+// authModel.js - Placeholder

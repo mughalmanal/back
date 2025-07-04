@@ -1,0 +1,1 @@
+// stockoutModel.js - Placeholder

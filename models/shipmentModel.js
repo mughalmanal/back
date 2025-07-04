@@ -1,0 +1,1 @@
+// shipmentModel.js - Placeholder
