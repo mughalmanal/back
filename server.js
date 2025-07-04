@@ -37,7 +37,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 // Import routes with exact filenames (capital R, plural)
-const authRoutes = require("./routes/authRoutes");
+const authroutes = require("./routes/authroutes");
 const invoiceRoutes = require("./routes/invoiceRoutes");
 const stockInRoutes = require("./routes/stockinRoutes");
 const stockOutRoutes = require("./routes/stockoutRoutes");
@@ -49,7 +49,7 @@ const paymentEntryRoutes = require("./routes/paymentEntriesRoutes");
 const reportRoutes = require("./routes/reportsRoutes");
 
 // Register routes
-app.use("/api/auth", authRoutes);
+app.use("/api/auth", authroutes);
 app.use("/api/invoices", invoiceRoutes);
 app.use("/api/stock-in", stockInRoutes);
 app.use("/api/stock-out", stockOutRoutes);
