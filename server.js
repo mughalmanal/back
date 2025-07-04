@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 const app = express();
 
-// ✅ Manual CORS middleware (replace the need for 'cors' package)
+// Manual CORS middleware (replace 'cors' package)
 app.use((req, res, next) => {
   const allowedOrigins = [
     "https://front-lake-two.vercel.app",
@@ -30,22 +30,43 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-// ✅ Routes
-const invoiceRoutes = require("./routes/invoiceRoutes");
+// ===== Import all route files here =====
 const authRoutes = require("./routes/auth.route");
-app.use("/api/invoices", invoiceRoutes);
-app.use("/api/auth", authRoutes);
+const invoiceRoutes = require("./routes/invoiceRoutes");
+const stockInRoutes = require("./routes/stockin.route");
+const stockOutRoutes = require("./routes/stockout.route");
+const productRoutes = require("./routes/products.route");
+const vendorRoutes = require("./routes/vendors.route");
+const clientRoutes = require("./routes/clients.route");
+const purchaseOrderRoutes = require("./routes/purchaseOrders.route");
+const paymentEntryRoutes = require("./routes/paymentEntries.route");
+const reportRoutes = require("./routes/reports.route");
 
-// ✅ MongoDB
+// ===== Register routes =====
+app.use("/api/auth", authRoutes);
+app.use("/api/invoices", invoiceRoutes);
+app.use("/api/stock-in", stockInRoutes);
+app.use("/api/stock-out", stockOutRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/vendors", vendorRoutes);
+app.use("/api/clients", clientRoutes);
+app.use("/api/purchase-orders", purchaseOrderRoutes);
+app.use("/api/payment-entries", paymentEntryRoutes);
+app.use("/api/reports", reportRoutes);
+
+// ===== MongoDB connection =====
 mongoose
-  .connect("mongodb+srv://mughlu16029:mushi@cluster0.t1tgyhk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    "mongodb+srv://mughlu16029:mushi@cluster0.t1tgyhk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then(() => console.log("✅ MongoDB Connected"))
   .catch((err) => console.error("❌ MongoDB Connection Error:", err));
 
-// ✅ Server
+// ===== Start server =====
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
