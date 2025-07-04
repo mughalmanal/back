@@ -1,52 +1,52 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const cors = require("cors");
 
 const app = express();
 
-// ✅ Allowed frontend domains
+// ✅ Whitelisted frontend origins
 const allowedOrigins = [
-  "https://front-git-main-manals-projects-114395d1.vercel.app", // production (Vercel)
-  "https://front-lake-two.vercel.app",                          // alternate deployment
-  "http://localhost:3000"                                       // local development
+  "https://front-h6fw2530u-manals-projects-114395d1.vercel.app",
+  "https://front-lake-two.vercel.app",
+  "https://front-git-main-manals-projects-114395d1.vercel.app",
+  "https://front-manals-projects-114395d1.vercel.app",
+  "http://localhost:3000"
 ];
 
-// ✅ Enable CORS
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      // Allow requests with no origin (like mobile apps, curl, Postman)
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("❌ Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-  })
-);
+// ✅ CORS Middleware
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
 
-// ✅ Allow preflight requests for all routes
-app.options("*", cors());
+  res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+
+  next();
+});
 
 app.use(express.json());
 
-// ✅ Import Routes
+// ✅ Import and Use Routes
 const invoiceRoutes = require("./routes/invoiceRoutes");
-const authRoutes = require("./routes/auth.route"); // Ensure this file exists
+const authRoutes = require("./routes/auth.route"); // Make sure this file exists
 
-// ✅ Apply Routes
 app.use("/api/invoices", invoiceRoutes);
 app.use("/api/auth", authRoutes);
 
-// ✅ Connect to MongoDB
+// ✅ MongoDB Connection
 mongoose
   .connect("mongodb+srv://mughlu16029:mushi@cluster0.t1tgyhk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => console.log("✅ MongoDB Connected"))
-  .catch((err) => console.error("❌ MongoDB Connection Error:", err));
+  .catch((err) => console.error("❌ MongoDB Error:", err));
 
 // ✅ Start Server
 const PORT = process.env.PORT || 5000;
