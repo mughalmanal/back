@@ -1,14 +1,12 @@
 const mongoose = require("mongoose");
 
-const ReturnsSchema = new mongoose.Schema({
-  // define your schema fields here
-  field1: String,
-  field2: String,
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  }
-});
+const returnSchema = new mongoose.Schema({
+  returnNumber: { type: String, required: true },
+  shipmentNumber: { type: String },
+  returnDate: { type: Date },
+  quantity: Number,
+  reason: String,
+  refundRequested: { type: Boolean, default: false },
+}, { timestamps: true });
 
-const Returns = mongoose.model("Returns", ReturnsSchema);
-module.exports = { Returns };
+module.exports = mongoose.model("Return", returnSchema);
