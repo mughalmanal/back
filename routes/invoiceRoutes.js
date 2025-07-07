@@ -1,15 +1,27 @@
-const express = require("express");
-const router = express.Router();
-const {
-  addInvoice,
-  getInvoices,
+import express from 'express';
+import {
+  createInvoice,
+  getAllInvoices,
   updateInvoice,
   deleteInvoice,
-} = require("../controllers/invoiceController");
+  exportInvoicesToCSV,
+  exportInvoicesToPDF,
+  getPrintableInvoice
+} from '../controllers/invoiceController.js';
 
-router.post("/", addInvoice);
-router.get("/", getInvoices);
-router.put("/:id", updateInvoice);
-router.delete("/:id", deleteInvoice);
+const router = express.Router();
 
-module.exports = router;
+// Main CRUD
+router.post('/', createInvoice);
+router.get('/', getAllInvoices);
+router.put('/:id', updateInvoice);
+router.delete('/:id', deleteInvoice);
+
+// Export
+router.get('/export/csv', exportInvoicesToCSV);
+router.get('/export/pdf', exportInvoicesToPDF);
+
+// Print
+router.get('/print/:id', getPrintableInvoice);
+
+export default router;
