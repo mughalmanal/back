@@ -1,28 +1,27 @@
 import Invoice from "../models/invoiceModel.js";
 
-function generateNextInvoiceNumber(lastNumber) {
-  if (!lastNumber) return "INV-0001";
-  const num = parseInt(lastNumber.replace("INV-", "")) + 1;
-  return `INV-${String(num).padStart(4, "0")}`;
-}
+// Generate invoice number like INV-0021
+const generateInvoiceNumber = async () => {
+  const count = await Invoice.countDocuments();
+  return `INV-${(count + 1).toString().padStart(4, '0')}`;
+};
 
 export const createInvoice = async (req, res) => {
   try {
-    const lastInvoice = await Invoice.findOne().sort({ createdAt: -1 });
-
-    const nextInvoiceNumber = generateNextInvoiceNumber(
-      lastInvoice?.invoiceNumber
-    );
+    const { clientName, items } = req.body;
+    const invoiceNumber = await generateInvoiceNumber();
+    const totalAmount = items.reduce((acc, item) => acc + item.quantity * item.price, 0);
 
     const newInvoice = new Invoice({
-      ...req.body,
-      invoiceNumber: nextInvoiceNumber,
+      invoiceNumber,
+      clientName,
+      items,
+      totalAmount,
     });
 
-    await newInvoice.save();
-    res.status(201).json({ message: "✅ Invoice created", invoice: newInvoice });
+    const saved = await newInvoice.save();
+    res.status(201).json(saved);
   } catch (error) {
-    console.error("❌ Error creating invoice:", error);
-    res.status(500).json({ error: "Failed to create invoice" });
+    res.status(500).json({ message: "Error creating invoice", error });
   }
 };
