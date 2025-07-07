@@ -12,4 +12,5 @@ router.get("/", getPurchaseOrders);
 router.put("/:id", updatePurchaseOrder);
 router.delete("/:id", deletePurchaseOrder);
 
-module.exports = router;
+export default router;
+
