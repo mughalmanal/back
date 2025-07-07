@@ -1,6 +1,6 @@
 const Report = require("../models/Report");
 
-// Create a new report
+// Create new report
 exports.generateReport = async (req, res) => {
   try {
     const report = new Report(req.body);
