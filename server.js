@@ -51,7 +51,7 @@ app.use("/api/supplier/create-invoice-nopo", require("./routes/supplierPortal/cr
 app.use("/api/supplier/view-invoices", require("./routes/supplierPortal/viewInvoicesRoutes"));
 app.use("/api/supplier/view-payments", require("./routes/supplierPortal/viewPaymentsRoutes"));
 app.use("/api/supplier/review-consumption", require("./routes/supplierPortal/reviewConsumptionRoutes"));
-app.use("/api/supplier/profile", require("./routes/supplierPortal/profileRoutes"));
+app.use("/api/supplier/profile", require("./routes/supplierPortal/manageProfileRoutes"));
 
 // Server Start
 const PORT = process.env.PORT || 5000;
