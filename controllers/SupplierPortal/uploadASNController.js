@@ -1,38 +1,38 @@
-const UploadASN = require("../models/UploadASN");
+const UploadASN = require("../../models/supplierPortal/UploadASN");
 
-exports.createUploadASN = async (req, res) => {
+exports.create = async (req, res) => {
   try {
-    const doc = new UploadASN(req.body);
-    await doc.save();
-    res.status(201).json(doc);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+    const newRecord = new UploadASN(req.body);
+    await newRecord.save();
+    res.status(201).json(newRecord);
+  } catch (error) {
+    res.status(500).json({ message: "Error uploading ASN", error });
   }
 };
 
-exports.getUploadASN = async (req, res) => {
+exports.getAll = async (req, res) => {
   try {
-    const docs = await UploadASN.find().sort({ createdAt: -1 });
-    res.json(docs);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    const records = await UploadASN.find();
+    res.status(200).json(records);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching uploaded ASNs", error });
   }
 };
 
-exports.updateUploadASN = async (req, res) => {
+exports.update = async (req, res) => {
   try {
-    const doc = await UploadASN.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.json(doc);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+    const updated = await UploadASN.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.status(200).json(updated);
+  } catch (error) {
+    res.status(500).json({ message: "Error updating uploaded ASN", error });
   }
 };
 
-exports.deleteUploadASN = async (req, res) => {
+exports.remove = async (req, res) => {
   try {
     await UploadASN.findByIdAndDelete(req.params.id);
-    res.json({ message: "UploadASN deleted" });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(200).json({ message: "Uploaded ASN deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting uploaded ASN", error });
   }
 };
