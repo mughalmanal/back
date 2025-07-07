@@ -5,13 +5,12 @@ const {
   addPayment,
   getPayments,
   updatePayment,
-  deletePayment,
-} = require("../controllers/paymentEntryController"); // ✅ make sure this path is correct
+  deletePayment
+} = require("../controllers/paymentEntryController");
 
-// ✅ Define the routes
 router.post("/", addPayment);
 router.get("/", getPayments);
-router.put("/:id", updatePayment); // ✅ update route
+router.put("/:id", updatePayment);
 router.delete("/:id", deletePayment);
 
 module.exports = router;
