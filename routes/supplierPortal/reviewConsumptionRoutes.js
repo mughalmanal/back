@@ -1,12 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const {
-  createReviewConsumption, getReviewConsumption, updateReviewConsumption, deleteReviewConsumption
-} = require("../controllers/ReviewConsumptionController");
+const controller = require("../../controllers/SupplierPortal/reviewConsumptionController");
 
-router.post("/", createReviewConsumption);
-router.get("/", getReviewConsumption);
-router.put("/:id", updateReviewConsumption);
-router.delete("/:id", deleteReviewConsumption);
+router.post("/", controller.create);
+router.get("/", controller.getAll);
+router.put("/:id", controller.update);
+router.delete("/:id", controller.remove);
 
 module.exports = router;
