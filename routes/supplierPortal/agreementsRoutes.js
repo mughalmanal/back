@@ -14,4 +14,5 @@ router.put("/:id", agreementsController.update);
 // Delete
 router.delete("/:id", agreementsController.remove);
 
-module.exports = router;
+export default router;
+
