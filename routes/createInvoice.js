@@ -1,5 +1,5 @@
 import express from "express";
-import { createInvoice } from "../controllers/createInvoice.js";
+import { createInvoice } from "../controllers/createInvoiceController";
 
 const router = express.Router();
 
