@@ -1,6 +1,6 @@
-const ManageProfile = require("../models/ManageProfile");
+const ManageProfile = require("../../models/supplierPortal/ManageProfile");
 
-exports.createManageProfile = async (req, res) => {
+exports.create = async (req, res) => {
   try {
     const doc = new ManageProfile(req.body);
     await doc.save();
@@ -10,7 +10,7 @@ exports.createManageProfile = async (req, res) => {
   }
 };
 
-exports.getManageProfile = async (req, res) => {
+exports.getAll = async (req, res) => {
   try {
     const docs = await ManageProfile.find().sort({ createdAt: -1 });
     res.json(docs);
@@ -19,7 +19,7 @@ exports.getManageProfile = async (req, res) => {
   }
 };
 
-exports.updateManageProfile = async (req, res) => {
+exports.update = async (req, res) => {
   try {
     const doc = await ManageProfile.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.json(doc);
@@ -28,10 +28,10 @@ exports.updateManageProfile = async (req, res) => {
   }
 };
 
-exports.deleteManageProfile = async (req, res) => {
+exports.remove = async (req, res) => {
   try {
     await ManageProfile.findByIdAndDelete(req.params.id);
-    res.json({ message: "ManageProfile deleted" });
+    res.json({ message: "Deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
