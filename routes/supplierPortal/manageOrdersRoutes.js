@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const {
   createManageOrders, getManageOrders, updateManageOrders, deleteManageOrders
-} = require("../controllers/ManageOrdersController");
+} = require("../controllers/manageOrdersController");
 
 router.post("/", createManageOrders);
 router.get("/", getManageOrders);
