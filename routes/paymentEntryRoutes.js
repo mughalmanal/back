@@ -13,4 +13,5 @@ router.get("/", getPayments);
 router.put("/:id", updatePayment);
 router.delete("/:id", deletePayment);
 
-module.exports = router;
+export default router;
+
