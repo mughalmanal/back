@@ -1,38 +1,38 @@
-const CreateASN = require("../models/CreateASN");
+const CreateASN = require("../../models/supplierPortal/CreateASN");
 
-exports.createCreateASN = async (req, res) => {
+exports.create = async (req, res) => {
   try {
-    const doc = new CreateASN(req.body);
-    await doc.save();
-    res.status(201).json(doc);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+    const newRecord = new CreateASN(req.body);
+    await newRecord.save();
+    res.status(201).json(newRecord);
+  } catch (error) {
+    res.status(500).json({ message: "Error creating ASN", error });
   }
 };
 
-exports.getCreateASN = async (req, res) => {
+exports.getAll = async (req, res) => {
   try {
-    const docs = await CreateASN.find().sort({ createdAt: -1 });
-    res.json(docs);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    const records = await CreateASN.find();
+    res.status(200).json(records);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching ASNs", error });
   }
 };
 
-exports.updateCreateASN = async (req, res) => {
+exports.update = async (req, res) => {
   try {
-    const doc = await CreateASN.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.json(doc);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+    const updated = await CreateASN.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.status(200).json(updated);
+  } catch (error) {
+    res.status(500).json({ message: "Error updating ASN", error });
   }
 };
 
-exports.deleteCreateASN = async (req, res) => {
+exports.remove = async (req, res) => {
   try {
     await CreateASN.findByIdAndDelete(req.params.id);
-    res.json({ message: "CreateASN deleted" });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(200).json({ message: "ASN deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting ASN", error });
   }
 };
