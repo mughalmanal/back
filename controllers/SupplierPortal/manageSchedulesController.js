@@ -1,6 +1,6 @@
-const ManageSchedules = require("../../models/ManageSchedules");
+const ManageSchedules = require("../../models/supplierPortal/ManageSchedules");
 
-exports.createManageSchedules = async (req, res) => {
+exports.create = async (req, res) => {
   try {
     const doc = new ManageSchedules(req.body);
     await doc.save();
@@ -10,7 +10,7 @@ exports.createManageSchedules = async (req, res) => {
   }
 };
 
-exports.getManageSchedules = async (req, res) => {
+exports.getAll = async (req, res) => {
   try {
     const docs = await ManageSchedules.find().sort({ createdAt: -1 });
     res.json(docs);
@@ -19,7 +19,7 @@ exports.getManageSchedules = async (req, res) => {
   }
 };
 
-exports.updateManageSchedules = async (req, res) => {
+exports.update = async (req, res) => {
   try {
     const doc = await ManageSchedules.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.json(doc);
@@ -28,10 +28,10 @@ exports.updateManageSchedules = async (req, res) => {
   }
 };
 
-exports.deleteManageSchedules = async (req, res) => {
+exports.remove = async (req, res) => {
   try {
     await ManageSchedules.findByIdAndDelete(req.params.id);
-    res.json({ message: "ManageSchedules deleted" });
+    res.json({ message: "Deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
