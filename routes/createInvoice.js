@@ -1,9 +1,15 @@
 import express from "express";
-import { createInvoice } from "../controllers/createInvoiceController";
+import {
+  createInvoice,
+  getInvoiceById
+} from "../controllers/createInvoice.js"; // ✅ Correct filename here
 
 const router = express.Router();
 
-// POST: Create a new invoice
+// POST: Create new invoice
 router.post("/", createInvoice);
+
+// GET: Get invoice by ID
+router.get("/:id", getInvoiceById);
 
 export default router;
