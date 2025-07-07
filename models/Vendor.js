@@ -6,7 +6,14 @@ const vendorSchema = new mongoose.Schema({
   email: String,
   address: String,
   company: String,
-  gstNumber: String,
+  cnic: String,
+  productsSupplied: [
+    {
+      name: String,
+      price: Number,
+      quantity: Number,
+    }
+  ],
 }, { timestamps: true });
 
 module.exports = mongoose.model("Vendor", vendorSchema);
