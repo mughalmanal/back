@@ -17,23 +17,12 @@ const __dirname = path.dirname(__filename);
 // Middleware
 app.use(express.json());
 
-// CORS Setup
-const allowedOrigins = [
-  "https://front-git-main-manals-projects-114395d1.vercel.app",
-  "https://front-lake-two.vercel.app",
-  "https://front-git-main-manals-projects-114395d1.vercel.app/",
-  "https://front-iur3hh0pk-manals-projects-114395d1.vercel.app/"
-];
-
+// ✅ CORS Setup (Allow All Origins with Credentials)
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('CORS not allowed for this origin'));
-    }
+    callback(null, true); // Allow all origins
   },
-  credentials: true,
+  credentials: true
 }));
 
 // MongoDB Connection
