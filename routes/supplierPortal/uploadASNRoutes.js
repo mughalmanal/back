@@ -1,12 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const {
-  createUploadASN, getUploadASN, updateUploadASN, deleteUploadASN
-} = require("../controllers/UploadASNController");
+const controller = require("../../controllers/SupplierPortal/uploadASNController");
 
-router.post("/", createUploadASN);
-router.get("/", getUploadASN);
-router.put("/:id", updateUploadASN);
-router.delete("/:id", deleteUploadASN);
+router.post("/", controller.create);
+router.get("/", controller.getAll);
+router.put("/:id", controller.update);
+router.delete("/:id", controller.remove);
 
 module.exports = router;
