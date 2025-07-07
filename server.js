@@ -6,29 +6,25 @@ const dotenv = require("dotenv");
 
 const app = express();
 dotenv.config();
-
-// Middleware
 app.use(express.json());
 
-// MongoDB connection
+// MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
-.then(() => {
-  console.log("✅ Connected to MongoDB");
-})
+.then(() => console.log("✅ MongoDB connected"))
 .catch((err) => {
   console.error("❌ MongoDB connection failed:", err);
   process.exit(1);
 });
 
-// Test root route
+// Root Route
 app.get("/", (req, res) => {
   res.send("🚀 ASIF AND BROTHERS API is running");
 });
 
-// Routes
+// ERP Routes
 app.use("/api/clients", require("./routes/clientRoutes"));
 app.use("/api/vendors", require("./routes/vendorRoutes"));
 app.use("/api/products", require("./routes/productRoutes"));
@@ -57,14 +53,6 @@ app.use("/api/supplier/payments", require("./routes/supplierPortal/paymentsRoute
 app.use("/api/supplier/review-consumption", require("./routes/supplierPortal/reviewConsumptionRoutes"));
 app.use("/api/supplier/profile", require("./routes/supplierPortal/profileRoutes"));
 
-// Global error logging
-process.on("uncaughtException", (err) => {
-  console.error("🔥 Uncaught Exception:", err);
-});
-
-// Server start
+// Server Start
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-});
-// Entry point - imports all routes and starts server
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
