@@ -1,12 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const {
-  createManageAgreements, getManageAgreements, updateManageAgreements, deleteManageAgreements
-} = require("../controllers/ManageAgreementsController");
+const controller = require("../../controllers/SupplierPortal/manageAgreementsController");
 
-router.post("/", createManageAgreements);
-router.get("/", getManageAgreements);
-router.put("/:id", updateManageAgreements);
-router.delete("/:id", deleteManageAgreements);
+router.post("/", controller.create);
+router.get("/", controller.getAll);
+router.put("/:id", controller.update);
+router.delete("/:id", controller.remove);
 
 module.exports = router;
