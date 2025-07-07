@@ -1,6 +1,6 @@
-const OrdersView = require("../models/OrdersView");
+const OrdersView = require("../../models/supplierPortal/OrdersView");
 
-exports.createOrdersView = async (req, res) => {
+exports.create = async (req, res) => {
   try {
     const doc = new OrdersView(req.body);
     await doc.save();
@@ -10,7 +10,7 @@ exports.createOrdersView = async (req, res) => {
   }
 };
 
-exports.getOrdersView = async (req, res) => {
+exports.getAll = async (req, res) => {
   try {
     const docs = await OrdersView.find().sort({ createdAt: -1 });
     res.json(docs);
@@ -19,7 +19,7 @@ exports.getOrdersView = async (req, res) => {
   }
 };
 
-exports.updateOrdersView = async (req, res) => {
+exports.update = async (req, res) => {
   try {
     const doc = await OrdersView.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.json(doc);
@@ -28,10 +28,10 @@ exports.updateOrdersView = async (req, res) => {
   }
 };
 
-exports.deleteOrdersView = async (req, res) => {
+exports.remove = async (req, res) => {
   try {
     await OrdersView.findByIdAndDelete(req.params.id);
-    res.json({ message: "OrdersView deleted" });
+    res.json({ message: "Deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
