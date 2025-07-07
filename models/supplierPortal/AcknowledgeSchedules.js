@@ -1,14 +1,11 @@
 const mongoose = require("mongoose");
 
-const AcknowledgeSchedulesSchema = new mongoose.Schema({
-  // define your schema fields here
-  field1: String,
-  field2: String,
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  }
-});
+const acknowledgeSchedulesSchema = new mongoose.Schema({
+  acknowledgeNumber: { type: String, required: true },
+  scheduleRef: { type: String },
+  date: { type: Date },
+  notes: { type: String },
+  acknowledgedBy: { type: String },
+}, { timestamps: true });
 
-const AcknowledgeSchedules = mongoose.model("AcknowledgeSchedules", AcknowledgeSchedulesSchema);
-module.exports = { AcknowledgeSchedules };
+module.exports = mongoose.model("AcknowledgeSchedules", acknowledgeSchedulesSchema);
