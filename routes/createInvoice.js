@@ -6,10 +6,10 @@ import {
 
 const router = express.Router();
 
-// ✅ Now it's /api/invoice/create
+// ✅ Create invoice → POST /api/invoice/create
 router.post("/create", createInvoice);
 
-// Optional: Get invoice by ID (/api/invoice/:id)
-router.get("/:id", getInvoiceById);
+// ✅ Get invoice by ID → GET /api/invoice/id/:id
+router.get("/id/:id", getInvoiceById);
 
 export default router;
