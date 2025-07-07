@@ -1,6 +1,6 @@
-const ViewPayments = require("../models/ViewPayments");
+const ViewPayments = require("../../models/supplierPortal/ViewPayments");
 
-exports.createViewPayments = async (req, res) => {
+exports.create = async (req, res) => {
   try {
     const doc = new ViewPayments(req.body);
     await doc.save();
@@ -10,7 +10,7 @@ exports.createViewPayments = async (req, res) => {
   }
 };
 
-exports.getViewPayments = async (req, res) => {
+exports.getAll = async (req, res) => {
   try {
     const docs = await ViewPayments.find().sort({ createdAt: -1 });
     res.json(docs);
@@ -19,7 +19,7 @@ exports.getViewPayments = async (req, res) => {
   }
 };
 
-exports.updateViewPayments = async (req, res) => {
+exports.update = async (req, res) => {
   try {
     const doc = await ViewPayments.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.json(doc);
@@ -28,10 +28,10 @@ exports.updateViewPayments = async (req, res) => {
   }
 };
 
-exports.deleteViewPayments = async (req, res) => {
+exports.remove = async (req, res) => {
   try {
     await ViewPayments.findByIdAndDelete(req.params.id);
-    res.json({ message: "ViewPayments deleted" });
+    res.json({ message: "Deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
