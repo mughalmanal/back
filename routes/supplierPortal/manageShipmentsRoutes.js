@@ -1,12 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const {
-  createManageShipments, getManageShipments, updateManageShipments, deleteManageShipments
-} = require("../controllers/ManageShipmentsController");
+const controller = require("../../controllers/SupplierPortal/manageShipmentsController");
 
-router.post("/", createManageShipments);
-router.get("/", getManageShipments);
-router.put("/:id", updateManageShipments);
-router.delete("/:id", deleteManageShipments);
+router.post("/", controller.create);
+router.get("/", controller.getAll);
+router.put("/:id", controller.update);
+router.delete("/:id", controller.remove);
 
 module.exports = router;
