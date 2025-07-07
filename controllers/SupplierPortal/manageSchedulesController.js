@@ -1,4 +1,4 @@
-const ManageSchedules = require("../models/ManageSchedules");
+const ManageSchedules = require("../../models/ManageSchedules");
 
 exports.createManageSchedules = async (req, res) => {
   try {
