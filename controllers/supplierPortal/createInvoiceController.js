@@ -1,4 +1,4 @@
-const SupplierInvoice = require("../../models/supplierPortal/SupplierInvoice");
+const SupplierInvoice = require("../../models/supplierPortal/createInvoice");
 
 exports.createInvoice = async (req, res) => {
   try {
