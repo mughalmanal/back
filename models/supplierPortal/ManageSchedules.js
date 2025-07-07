@@ -1,14 +1,20 @@
 const mongoose = require("mongoose");
 
-const ManageSchedulesSchema = new mongoose.Schema({
-  // define your schema fields here
-  field1: String,
-  field2: String,
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  }
-});
+const manageSchedulesSchema = new mongoose.Schema({
+  scheduleNumber: { type: String, required: true },
+  orderRef: { type: String },
+  scheduleDate: { type: Date },
+  items: [
+    {
+      product: String,
+      quantity: Number,
+    },
+  ],
+  status: {
+    type: String,
+    enum: ["Scheduled", "In Progress", "Completed"],
+    default: "Scheduled",
+  },
+}, { timestamps: true });
 
-const ManageSchedules = mongoose.model("ManageSchedules", ManageSchedulesSchema);
-module.exports = { ManageSchedules };
+module.exports = mongoose.model("ManageSchedules", manageSchedulesSchema);
