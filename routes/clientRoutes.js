@@ -13,4 +13,5 @@ router.get("/", getClients);
 router.put("/:id", updateClient);
 router.delete("/:id", deleteClient);
 
-module.exports = router;
+export default router;
+
