@@ -1,4 +1,4 @@
-const StockOut = require("../models/StockOut");
+const StockOut = require("../models/Stockout");
 
 exports.addStockOut = async (req, res) => {
   try {
