@@ -5,7 +5,7 @@ import {
   updateInvoice,
   exportInvoicesPDF,
   exportInvoicesCSV,
-} from "../controllers/viewInvoice.js";
+} from "../controllers/viewInvoiceController";
 
 const router = express.Router();
 
