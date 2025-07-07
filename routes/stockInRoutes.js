@@ -12,4 +12,5 @@ router.get("/", getStockIn);
 router.put("/:id", updateStockIn);
 router.delete("/:id", deleteStockIn);
 
-module.exports = router;
+export default router;
+
