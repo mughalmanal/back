@@ -1,27 +1,36 @@
-import express from "express";
-import {
-  getInvoices,
-  deleteInvoice,
-  updateInvoice,
-  exportInvoicesPDF,
-  exportInvoicesCSV,
-} from "../controllers/viewInvoice.js";
 
-const router = express.Router();
+import Invoice from '../models/invoiceModel.js';
 
-// GET: All invoices
-router.get("/", getInvoices);
+// Generate unique invoice numbers (basic logic)
+let invoiceCount = 1;
 
-// DELETE: Delete an invoice
-router.delete("/:id", deleteInvoice);
+export const createInvoice = async (req, res) => {
+  try {
+    const data = req.body;
 
-// PUT: Update an invoice
-router.put("/:id", updateInvoice);
+    const invoiceNumber = `INV-${invoiceCount.toString().padStart(4, '0')}`;
+    invoiceCount++;
 
-// Export PDF
-router.get("/export/pdf", exportInvoicesPDF);
+    const newInvoice = new Invoice({
+      ...data,
+      invoiceNumber,
+    });
 
-// Export CSV
-router.get("/export/csv", exportInvoicesCSV);
+    await newInvoice.save();
+    res.status(201).json(newInvoice);
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to create invoice', error });
+  }
+};
 
-export default router;
+export const getInvoiceById = async (req, res) => {
+  try {
+    const invoice = await Invoice.findById(req.params.id);
+    if (!invoice) {
+      return res.status(404).json({ message: 'Invoice not found' });
+    }
+    res.status(200).json(invoice);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching invoice', error });
+  }
+};
