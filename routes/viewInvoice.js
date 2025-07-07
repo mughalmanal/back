@@ -1,20 +1,27 @@
 import express from "express";
 import {
-  getAllInvoices,
-  updateInvoice,
+  getInvoices,
   deleteInvoice,
-  exportInvoicesToCSV,
-  exportInvoicesToPDF,
-  printInvoice
-} from "../../controllers/invoice/viewInvoiceController.js";
+  updateInvoice,
+  exportInvoicesPDF,
+  exportInvoicesCSV,
+} from "../controllers/viewInvoice.js";
 
 const router = express.Router();
 
-router.get("/", getAllInvoices);
-router.put("/:id", updateInvoice);
+// GET: All invoices
+router.get("/", getInvoices);
+
+// DELETE: Delete an invoice
 router.delete("/:id", deleteInvoice);
-router.get("/export/csv", exportInvoicesToCSV);
-router.get("/export/pdf", exportInvoicesToPDF);
-router.get("/print/:id", printInvoice);
+
+// PUT: Update an invoice
+router.put("/:id", updateInvoice);
+
+// Export PDF
+router.get("/export/pdf", exportInvoicesPDF);
+
+// Export CSV
+router.get("/export/csv", exportInvoicesCSV);
 
 export default router;
