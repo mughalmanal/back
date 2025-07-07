@@ -34,10 +34,10 @@ mongoose.connect(process.env.MONGO_URI, {
      IMPORT ROUTES
 ============================ */
 
-// Main ERP Modules
+// ERP Modules
 import clientRoutes from './routes/clientRoutes.js';
-import createInvoiceRoutes from './routes/createInvoiceRoutes.js';
-import viewInvoicesRoutes from './routes/viewInvoicesRoutes.js';
+import createInvoiceRoutes from './routes/createInvoice.js'; // ✅ createInvoice.js route
+import viewInvoicesRoutes from './routes/viewInvoice.js';   // ✅ viewInvoice.js route
 import paymentEntryRoutes from './routes/paymentEntryRoutes.js';
 import productRoutes from './routes/productRoutes.js';
 import purchaseOrderRoutes from './routes/purchaseOrderRoutes.js';
@@ -71,10 +71,10 @@ import viewReceiptsRoutes from './routes/supplierPortal/viewReceiptsRoutes.js';
      APPLY ROUTES
 ============================ */
 
-// ERP Modules
+// ERP Routes
 app.use('/api/client', clientRoutes);
-app.use('/api/invoice/create', createInvoiceRoutes);
-app.use('/api/invoice/view', viewInvoicesRoutes);
+app.use('/api/invoice/create', createInvoiceRoutes);   // ✅ Custom create invoice
+app.use('/api/invoice/view', viewInvoicesRoutes);      // ✅ Custom view invoice
 app.use('/api/payment-entry', paymentEntryRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/purchase-orders', purchaseOrderRoutes);
@@ -84,7 +84,7 @@ app.use('/api/stock-out', stockOutRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/vendors', vendorRoutes);
 
-// Supplier Portal
+// Supplier Portal Routes
 app.use('/api/supplier/acknowledge-schedules', acknowledgeSchedulesRoutes);
 app.use('/api/supplier/agreements', agreementsRoutes);
 app.use('/api/supplier/create-asbn', createASBNRoutes);
