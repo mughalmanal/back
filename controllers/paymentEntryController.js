@@ -19,6 +19,19 @@ exports.getPayments = async (req, res) => {
   }
 };
 
+exports.updatePayment = async (req, res) => {
+  try {
+    const updated = await PaymentEntry.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+    res.json(updated);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
 exports.deletePayment = async (req, res) => {
   try {
     await PaymentEntry.findByIdAndDelete(req.params.id);
