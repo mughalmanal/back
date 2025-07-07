@@ -1,12 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const {
-  createOrdersView, getOrdersView, updateOrdersView, deleteOrdersView
-} = require("../controllers/OrdersViewController");
+const controller = require("../../controllers/SupplierPortal/ordersViewController");
 
-router.post("/", createOrdersView);
-router.get("/", getOrdersView);
-router.put("/:id", updateOrdersView);
-router.delete("/:id", deleteOrdersView);
+router.post("/", controller.create);
+router.get("/", controller.getAll);
+router.put("/:id", controller.update);
+router.delete("/:id", controller.remove);
 
 module.exports = router;
