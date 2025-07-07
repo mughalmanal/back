@@ -1,6 +1,6 @@
-const Returns = require("../models/Returns");
+const Returns = require("../../models/supplierPortal/Returns");
 
-exports.createReturns = async (req, res) => {
+exports.create = async (req, res) => {
   try {
     const doc = new Returns(req.body);
     await doc.save();
@@ -10,7 +10,7 @@ exports.createReturns = async (req, res) => {
   }
 };
 
-exports.getReturns = async (req, res) => {
+exports.getAll = async (req, res) => {
   try {
     const docs = await Returns.find().sort({ createdAt: -1 });
     res.json(docs);
@@ -19,7 +19,7 @@ exports.getReturns = async (req, res) => {
   }
 };
 
-exports.updateReturns = async (req, res) => {
+exports.update = async (req, res) => {
   try {
     const doc = await Returns.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.json(doc);
@@ -28,10 +28,10 @@ exports.updateReturns = async (req, res) => {
   }
 };
 
-exports.deleteReturns = async (req, res) => {
+exports.remove = async (req, res) => {
   try {
     await Returns.findByIdAndDelete(req.params.id);
-    res.json({ message: "Returns deleted" });
+    res.json({ message: "Deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
