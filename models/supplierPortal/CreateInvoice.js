@@ -1,14 +1,22 @@
 const mongoose = require("mongoose");
 
-const CreateInvoiceSchema = new mongoose.Schema({
-  // define your schema fields here
-  field1: String,
-  field2: String,
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  }
-});
+const createInvoiceSchema = new mongoose.Schema({
+  invoiceNumber: { type: String, required: true },
+  supplier: { type: String },
+  invoiceDate: { type: Date },
+  items: [
+    {
+      description: String,
+      quantity: Number,
+      unitPrice: Number,
+    },
+  ],
+  totalAmount: Number,
+  status: {
+    type: String,
+    enum: ["Pending", "Paid", "Rejected"],
+    default: "Pending",
+  },
+}, { timestamps: true });
 
-const CreateInvoice = mongoose.model("CreateInvoice", CreateInvoiceSchema);
-module.exports = { CreateInvoice };
+module.exports = mongoose.model("CreateInvoice", createInvoiceSchema);
