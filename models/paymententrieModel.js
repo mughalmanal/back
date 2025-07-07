@@ -1,1 +1,0 @@
-// paymententrieModel.js - Placeholder
