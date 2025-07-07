@@ -1,14 +1,16 @@
 const mongoose = require("mongoose");
 
-const ManageAgreementsSchema = new mongoose.Schema({
-  // define your schema fields here
-  field1: String,
-  field2: String,
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  }
-});
+const manageAgreementsSchema = new mongoose.Schema({
+  agreementNumber: { type: String, required: true },
+  supplier: { type: String },
+  startDate: { type: Date },
+  endDate: { type: Date },
+  documentUrl: { type: String },
+  status: {
+    type: String,
+    enum: ["Active", "Expired"],
+    default: "Active",
+  },
+}, { timestamps: true });
 
-const ManageAgreements = mongoose.model("ManageAgreements", ManageAgreementsSchema);
-module.exports = { ManageAgreements };
+module.exports = mongoose.model("ManageAgreements", manageAgreementsSchema);
