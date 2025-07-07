@@ -7,4 +7,4 @@ router.get("/", controller.getAll);
 router.put("/:id", controller.update);
 router.delete("/:id", controller.remove);
 
-module.exports = router;
+export default router;
