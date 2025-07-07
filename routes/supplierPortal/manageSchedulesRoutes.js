@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const {
   createManageSchedules, getManageSchedules, updateManageSchedules, deleteManageSchedules
-} = require("../controllers/ManageSchedulesController");
+} = require("../controllers/manageSchedulesController");
 
 router.post("/", createManageSchedules);
 router.get("/", getManageSchedules);
