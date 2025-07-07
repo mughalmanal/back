@@ -1,6 +1,6 @@
-const CreateInvoiceNoPo = require("../models/CreateInvoiceNoPo");
+const CreateInvoiceNoPo = require("../../models/supplierPortal/CreateInvoiceNoPo");
 
-exports.createCreateInvoiceNoPo = async (req, res) => {
+exports.create = async (req, res) => {
   try {
     const doc = new CreateInvoiceNoPo(req.body);
     await doc.save();
@@ -10,7 +10,7 @@ exports.createCreateInvoiceNoPo = async (req, res) => {
   }
 };
 
-exports.getCreateInvoiceNoPo = async (req, res) => {
+exports.getAll = async (req, res) => {
   try {
     const docs = await CreateInvoiceNoPo.find().sort({ createdAt: -1 });
     res.json(docs);
@@ -19,7 +19,7 @@ exports.getCreateInvoiceNoPo = async (req, res) => {
   }
 };
 
-exports.updateCreateInvoiceNoPo = async (req, res) => {
+exports.update = async (req, res) => {
   try {
     const doc = await CreateInvoiceNoPo.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.json(doc);
@@ -28,10 +28,10 @@ exports.updateCreateInvoiceNoPo = async (req, res) => {
   }
 };
 
-exports.deleteCreateInvoiceNoPo = async (req, res) => {
+exports.remove = async (req, res) => {
   try {
     await CreateInvoiceNoPo.findByIdAndDelete(req.params.id);
-    res.json({ message: "CreateInvoiceNoPo deleted" });
+    res.json({ message: "Deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
