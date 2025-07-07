@@ -1,4 +1,4 @@
-const StockIn = require("../models/StockIn");
+const StockIn = require("../models/stockIn");
 
 exports.addStockIn = async (req, res) => {
   try {
