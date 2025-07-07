@@ -1,14 +1,12 @@
 const express = require("express");
 const router = express.Router();
-
 const {
   createManageOrders,
   getManageOrders,
   updateManageOrders,
   deleteManageOrders,
-} = require("../../controllers/SupplierPortal/manageOrdersController"); // ✅ Correct path
+} = require("../../controllers/SupplierPortal/manageOrdersController");
 
-// Routes
 router.post("/", createManageOrders);
 router.get("/", getManageOrders);
 router.put("/:id", updateManageOrders);
