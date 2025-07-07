@@ -1,6 +1,6 @@
-const ManageShipments = require("../models/ManageShipments");
+const ManageShipments = require("../../models/supplierPortal/ManageShipments");
 
-exports.createManageShipments = async (req, res) => {
+exports.create = async (req, res) => {
   try {
     const doc = new ManageShipments(req.body);
     await doc.save();
@@ -10,7 +10,7 @@ exports.createManageShipments = async (req, res) => {
   }
 };
 
-exports.getManageShipments = async (req, res) => {
+exports.getAll = async (req, res) => {
   try {
     const docs = await ManageShipments.find().sort({ createdAt: -1 });
     res.json(docs);
@@ -19,7 +19,7 @@ exports.getManageShipments = async (req, res) => {
   }
 };
 
-exports.updateManageShipments = async (req, res) => {
+exports.update = async (req, res) => {
   try {
     const doc = await ManageShipments.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.json(doc);
@@ -28,10 +28,10 @@ exports.updateManageShipments = async (req, res) => {
   }
 };
 
-exports.deleteManageShipments = async (req, res) => {
+exports.remove = async (req, res) => {
   try {
     await ManageShipments.findByIdAndDelete(req.params.id);
-    res.json({ message: "ManageShipments deleted" });
+    res.json({ message: "Deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
