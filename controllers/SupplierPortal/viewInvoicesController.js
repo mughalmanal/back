@@ -1,6 +1,6 @@
-const ViewInvoices = require("../models/ViewInvoices");
+const ViewInvoices = require("../../models/supplierPortal/ViewInvoices");
 
-exports.createViewInvoices = async (req, res) => {
+exports.create = async (req, res) => {
   try {
     const doc = new ViewInvoices(req.body);
     await doc.save();
@@ -10,7 +10,7 @@ exports.createViewInvoices = async (req, res) => {
   }
 };
 
-exports.getViewInvoices = async (req, res) => {
+exports.getAll = async (req, res) => {
   try {
     const docs = await ViewInvoices.find().sort({ createdAt: -1 });
     res.json(docs);
@@ -19,7 +19,7 @@ exports.getViewInvoices = async (req, res) => {
   }
 };
 
-exports.updateViewInvoices = async (req, res) => {
+exports.update = async (req, res) => {
   try {
     const doc = await ViewInvoices.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.json(doc);
@@ -28,10 +28,10 @@ exports.updateViewInvoices = async (req, res) => {
   }
 };
 
-exports.deleteViewInvoices = async (req, res) => {
+exports.remove = async (req, res) => {
   try {
     await ViewInvoices.findByIdAndDelete(req.params.id);
-    res.json({ message: "ViewInvoices deleted" });
+    res.json({ message: "Deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
