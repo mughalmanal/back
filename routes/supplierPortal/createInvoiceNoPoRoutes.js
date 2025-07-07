@@ -1,12 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const {
-  createCreateInvoiceNoPo, getCreateInvoiceNoPo, updateCreateInvoiceNoPo, deleteCreateInvoiceNoPo
-} = require("../controllers/CreateInvoiceNoPoController");
+const controller = require("../../controllers/SupplierPortal/createInvoiceNoPoController");
 
-router.post("/", createCreateInvoiceNoPo);
-router.get("/", getCreateInvoiceNoPo);
-router.put("/:id", updateCreateInvoiceNoPo);
-router.delete("/:id", deleteCreateInvoiceNoPo);
+router.post("/", controller.create);
+router.get("/", controller.getAll);
+router.put("/:id", controller.update);
+router.delete("/:id", controller.remove);
 
 module.exports = router;
