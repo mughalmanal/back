@@ -73,7 +73,7 @@ import viewReceiptsRoutes from './routes/supplierPortal/viewReceiptsRoutes.js';
 
 // ERP Routes
 app.use('/api/client', clientRoutes);
-app.use('/api/invoice/create', createInvoiceRoutes);   // ✅ Custom create invoice
+app.use('/api/invoice', createInvoiceRoutes);   // ✅ Custom create invoice
 app.use('/api/invoice/view', viewInvoicesRoutes);      // ✅ Custom view invoice
 app.use('/api/payment-entry', paymentEntryRoutes);
 app.use('/api/products', productRoutes);
