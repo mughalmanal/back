@@ -1,12 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const {
-  createReturns, getReturns, updateReturns, deleteReturns
-} = require("../controllers/ReturnsController");
+const controller = require("../../controllers/SupplierPortal/returnsController");
 
-router.post("/", createReturns);
-router.get("/", getReturns);
-router.put("/:id", updateReturns);
-router.delete("/:id", deleteReturns);
+router.post("/", controller.create);
+router.get("/", controller.getAll);
+router.put("/:id", controller.update);
+router.delete("/:id", controller.remove);
 
 module.exports = router;
