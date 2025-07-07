@@ -1,6 +1,6 @@
-const ReviewConsumption = require("../models/ReviewConsumption");
+const ReviewConsumption = require("../../models/supplierPortal/ReviewConsumption");
 
-exports.createReviewConsumption = async (req, res) => {
+exports.create = async (req, res) => {
   try {
     const doc = new ReviewConsumption(req.body);
     await doc.save();
@@ -10,7 +10,7 @@ exports.createReviewConsumption = async (req, res) => {
   }
 };
 
-exports.getReviewConsumption = async (req, res) => {
+exports.getAll = async (req, res) => {
   try {
     const docs = await ReviewConsumption.find().sort({ createdAt: -1 });
     res.json(docs);
@@ -19,7 +19,7 @@ exports.getReviewConsumption = async (req, res) => {
   }
 };
 
-exports.updateReviewConsumption = async (req, res) => {
+exports.update = async (req, res) => {
   try {
     const doc = await ReviewConsumption.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.json(doc);
@@ -28,10 +28,10 @@ exports.updateReviewConsumption = async (req, res) => {
   }
 };
 
-exports.deleteReviewConsumption = async (req, res) => {
+exports.remove = async (req, res) => {
   try {
     await ReviewConsumption.findByIdAndDelete(req.params.id);
-    res.json({ message: "ReviewConsumption deleted" });
+    res.json({ message: "Deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
