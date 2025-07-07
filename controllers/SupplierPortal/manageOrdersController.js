@@ -1,4 +1,4 @@
-const ManageOrders = require("../../models/ManageOrders");
+const ManageOrders = require("../../models/supplierPortal/ManageOrders");
 
 exports.createManageOrders = async (req, res) => {
   try {
