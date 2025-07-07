@@ -13,4 +13,5 @@ router.get("/", getProducts);
 router.put("/:id", updateProduct);
 router.delete("/:id", deleteProduct);
 
-module.exports = router;
+export default router;
+
