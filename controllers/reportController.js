@@ -1,5 +1,6 @@
 const Report = require("../models/Report");
 
+// Create a new report
 exports.generateReport = async (req, res) => {
   try {
     const report = new Report(req.body);
@@ -10,10 +11,11 @@ exports.generateReport = async (req, res) => {
   }
 };
 
+// Get all reports
 exports.getReports = async (req, res) => {
   try {
     const reports = await Report.find().sort({ createdAt: -1 });
-    res.json(reports);
+    res.status(200).json(reports);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
