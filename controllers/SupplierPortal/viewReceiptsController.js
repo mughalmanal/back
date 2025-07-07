@@ -1,6 +1,6 @@
-const ViewReceipts = require("../models/ViewReceipts");
+const ViewReceipts = require("../../models/supplierPortal/ViewReceipts");
 
-exports.createViewReceipts = async (req, res) => {
+exports.create = async (req, res) => {
   try {
     const doc = new ViewReceipts(req.body);
     await doc.save();
@@ -10,7 +10,7 @@ exports.createViewReceipts = async (req, res) => {
   }
 };
 
-exports.getViewReceipts = async (req, res) => {
+exports.getAll = async (req, res) => {
   try {
     const docs = await ViewReceipts.find().sort({ createdAt: -1 });
     res.json(docs);
@@ -19,7 +19,7 @@ exports.getViewReceipts = async (req, res) => {
   }
 };
 
-exports.updateViewReceipts = async (req, res) => {
+exports.update = async (req, res) => {
   try {
     const doc = await ViewReceipts.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.json(doc);
@@ -28,10 +28,10 @@ exports.updateViewReceipts = async (req, res) => {
   }
 };
 
-exports.deleteViewReceipts = async (req, res) => {
+exports.remove = async (req, res) => {
   try {
     await ViewReceipts.findByIdAndDelete(req.params.id);
-    res.json({ message: "ViewReceipts deleted" });
+    res.json({ message: "Deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
