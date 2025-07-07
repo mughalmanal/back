@@ -2,14 +2,14 @@ import express from "express";
 import {
   createInvoice,
   getInvoiceById
-} from "../controllers/createInvoice.js"; // ✅ Correct filename here
+} from "../controllers/createInvoice.js";
 
 const router = express.Router();
 
-// POST: Create new invoice
-router.post("/", createInvoice);
+// ✅ Now it's /api/invoice/create
+router.post("/create", createInvoice);
 
-// GET: Get invoice by ID
+// Optional: Get invoice by ID (/api/invoice/:id)
 router.get("/:id", getInvoiceById);
 
 export default router;
