@@ -1,6 +1,6 @@
-const AcknowledgeSchedules = require("../models/AcknowledgeSchedules");
+const AcknowledgeSchedules = require("../../models/supplierPortal/AcknowledgeSchedules");
 
-exports.createAcknowledgeSchedules = async (req, res) => {
+exports.create = async (req, res) => {
   try {
     const doc = new AcknowledgeSchedules(req.body);
     await doc.save();
@@ -10,7 +10,7 @@ exports.createAcknowledgeSchedules = async (req, res) => {
   }
 };
 
-exports.getAcknowledgeSchedules = async (req, res) => {
+exports.getAll = async (req, res) => {
   try {
     const docs = await AcknowledgeSchedules.find().sort({ createdAt: -1 });
     res.json(docs);
@@ -19,7 +19,7 @@ exports.getAcknowledgeSchedules = async (req, res) => {
   }
 };
 
-exports.updateAcknowledgeSchedules = async (req, res) => {
+exports.update = async (req, res) => {
   try {
     const doc = await AcknowledgeSchedules.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.json(doc);
@@ -28,10 +28,10 @@ exports.updateAcknowledgeSchedules = async (req, res) => {
   }
 };
 
-exports.deleteAcknowledgeSchedules = async (req, res) => {
+exports.remove = async (req, res) => {
   try {
     await AcknowledgeSchedules.findByIdAndDelete(req.params.id);
-    res.json({ message: "AcknowledgeSchedules deleted" });
+    res.json({ message: "Deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
