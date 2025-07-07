@@ -1,16 +1,31 @@
 import mongoose from "mongoose";
 
 const invoiceSchema = new mongoose.Schema({
-  invoiceNumber: String,
-  clientName: String,
+  client: {
+    type: String,
+    required: true,
+  },
+  invoiceDate: {
+    type: Date,
+    required: true,
+  },
+  dueDate: {
+    type: Date,
+  },
+  remarks: {
+    type: String,
+  },
   items: [
     {
-      name: String,
-      quantity: Number,
-      price: Number,
-    },
+      name: { type: String, required: true },
+      quantity: { type: Number, required: true },
+      price: { type: Number, required: true },
+    }
   ],
-  totalAmount: Number,
+  total: {
+    type: Number,
+    required: true,
+  },
 }, { timestamps: true });
 
 export default mongoose.model("Invoice", invoiceSchema);
