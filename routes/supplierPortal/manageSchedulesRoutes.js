@@ -1,12 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const {
-  createManageSchedules, getManageSchedules, updateManageSchedules, deleteManageSchedules
-} = require("../controllers/manageSchedulesController");
+const controller = require("../../controllers/SupplierPortal/manageSchedulesController");
 
-router.post("/", createManageSchedules);
-router.get("/", getManageSchedules);
-router.put("/:id", updateManageSchedules);
-router.delete("/:id", deleteManageSchedules);
+router.post("/", controller.create);
+router.get("/", controller.getAll);
+router.put("/:id", controller.update);
+router.delete("/:id", controller.remove);
 
 module.exports = router;
