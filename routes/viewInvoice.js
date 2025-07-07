@@ -1,36 +1,18 @@
+import express from "express";
+import {
+  getAllInvoices,
+  deleteInvoice,
+  updateInvoice,
+  exportInvoicesPDF,
+  exportInvoicesCSV,
+} from "../controllers/createInvoice.js";
 
-import Invoice from '../models/invoiceModel.js';
+const router = express.Router();
 
-// Generate unique invoice numbers (basic logic)
-let invoiceCount = 1;
+router.get("/", getAllInvoices);
+router.delete("/:id", deleteInvoice);
+router.put("/:id", updateInvoice);
+router.get("/export/pdf", exportInvoicesPDF);
+router.get("/export/csv", exportInvoicesCSV);
 
-export const createInvoice = async (req, res) => {
-  try {
-    const data = req.body;
-
-    const invoiceNumber = `INV-${invoiceCount.toString().padStart(4, '0')}`;
-    invoiceCount++;
-
-    const newInvoice = new Invoice({
-      ...data,
-      invoiceNumber,
-    });
-
-    await newInvoice.save();
-    res.status(201).json(newInvoice);
-  } catch (error) {
-    res.status(500).json({ message: 'Failed to create invoice', error });
-  }
-};
-
-export const getInvoiceById = async (req, res) => {
-  try {
-    const invoice = await Invoice.findById(req.params.id);
-    if (!invoice) {
-      return res.status(404).json({ message: 'Invoice not found' });
-    }
-    res.status(200).json(invoice);
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching invoice', error });
-  }
-};
+export default router; // ✅ This line is crucial!
