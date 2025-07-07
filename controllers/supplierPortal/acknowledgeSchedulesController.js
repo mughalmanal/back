@@ -1,4 +1,4 @@
-const AcknowledgeSchedule = require("../../models/supplierPortal/AcknowledgeSchedule");
+const AcknowledgeSchedule = require("../../models/supplierPortal/Acknowledgeschedule");
 
 exports.acknowledgeSchedule = async (req, res) => {
   try {
