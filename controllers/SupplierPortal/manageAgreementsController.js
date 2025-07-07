@@ -1,6 +1,6 @@
-const ManageAgreements = require("../models/ManageAgreements");
+const ManageAgreements = require("../../models/supplierPortal/ManageAgreements");
 
-exports.createManageAgreements = async (req, res) => {
+exports.create = async (req, res) => {
   try {
     const doc = new ManageAgreements(req.body);
     await doc.save();
@@ -10,7 +10,7 @@ exports.createManageAgreements = async (req, res) => {
   }
 };
 
-exports.getManageAgreements = async (req, res) => {
+exports.getAll = async (req, res) => {
   try {
     const docs = await ManageAgreements.find().sort({ createdAt: -1 });
     res.json(docs);
@@ -19,7 +19,7 @@ exports.getManageAgreements = async (req, res) => {
   }
 };
 
-exports.updateManageAgreements = async (req, res) => {
+exports.update = async (req, res) => {
   try {
     const doc = await ManageAgreements.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.json(doc);
@@ -28,10 +28,10 @@ exports.updateManageAgreements = async (req, res) => {
   }
 };
 
-exports.deleteManageAgreements = async (req, res) => {
+exports.remove = async (req, res) => {
   try {
     await ManageAgreements.findByIdAndDelete(req.params.id);
-    res.json({ message: "ManageAgreements deleted" });
+    res.json({ message: "Deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
