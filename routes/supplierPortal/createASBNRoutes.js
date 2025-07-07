@@ -1,12 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const {
-  createCreateASBN, getCreateASBN, updateCreateASBN, deleteCreateASBN
-} = require("../controllers/CreateASBNController");
+const controller = require("../../controllers/SupplierPortal/createASBNController");
 
-router.post("/", createCreateASBN);
-router.get("/", getCreateASBN);
-router.put("/:id", updateCreateASBN);
-router.delete("/:id", deleteCreateASBN);
+router.post("/", controller.create);
+router.get("/", controller.getAll);
+router.put("/:id", controller.update);
+router.delete("/:id", controller.remove);
 
 module.exports = router;
