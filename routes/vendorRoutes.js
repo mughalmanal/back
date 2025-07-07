@@ -13,4 +13,5 @@ router.get("/", getVendors);
 router.put("/:id", updateVendor);
 router.delete("/:id", deleteVendor);
 
-module.exports = router;
+export default router;
+
