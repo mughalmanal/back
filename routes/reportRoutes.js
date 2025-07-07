@@ -11,4 +11,4 @@ router.get("/", getReports);
 // POST a new report
 router.post("/", generateReport);
 
-module.exports = router;
+export default router;
