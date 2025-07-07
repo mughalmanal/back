@@ -1,0 +1,1 @@
+// stockIn model

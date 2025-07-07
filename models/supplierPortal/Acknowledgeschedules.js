@@ -1,0 +1,1 @@
+// acknowledgeSchedules model
