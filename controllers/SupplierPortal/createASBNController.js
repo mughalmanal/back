@@ -1,38 +1,38 @@
-const CreateASBN = require("../models/CreateASBN");
+const CreateASBN = require("../../models/supplierPortal/CreateASBN");
 
-exports.createCreateASBN = async (req, res) => {
+exports.create = async (req, res) => {
   try {
-    const doc = new CreateASBN(req.body);
-    await doc.save();
-    res.status(201).json(doc);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+    const newRecord = new CreateASBN(req.body);
+    await newRecord.save();
+    res.status(201).json(newRecord);
+  } catch (error) {
+    res.status(500).json({ message: "Error creating ASBN", error });
   }
 };
 
-exports.getCreateASBN = async (req, res) => {
+exports.getAll = async (req, res) => {
   try {
-    const docs = await CreateASBN.find().sort({ createdAt: -1 });
-    res.json(docs);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    const records = await CreateASBN.find();
+    res.status(200).json(records);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching ASBNs", error });
   }
 };
 
-exports.updateCreateASBN = async (req, res) => {
+exports.update = async (req, res) => {
   try {
-    const doc = await CreateASBN.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.json(doc);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+    const updated = await CreateASBN.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.status(200).json(updated);
+  } catch (error) {
+    res.status(500).json({ message: "Error updating ASBN", error });
   }
 };
 
-exports.deleteCreateASBN = async (req, res) => {
+exports.remove = async (req, res) => {
   try {
     await CreateASBN.findByIdAndDelete(req.params.id);
-    res.json({ message: "CreateASBN deleted" });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(200).json({ message: "ASBN deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting ASBN", error });
   }
 };
