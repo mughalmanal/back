@@ -1,6 +1,6 @@
 const ManageOrders = require("../../models/supplierPortal/ManageOrders");
 
-exports.createManageOrders = async (req, res) => {
+exports.create = async (req, res) => {
   try {
     const doc = new ManageOrders(req.body);
     await doc.save();
@@ -10,7 +10,7 @@ exports.createManageOrders = async (req, res) => {
   }
 };
 
-exports.getManageOrders = async (req, res) => {
+exports.getAll = async (req, res) => {
   try {
     const docs = await ManageOrders.find().sort({ createdAt: -1 });
     res.json(docs);
@@ -19,7 +19,7 @@ exports.getManageOrders = async (req, res) => {
   }
 };
 
-exports.updateManageOrders = async (req, res) => {
+exports.update = async (req, res) => {
   try {
     const doc = await ManageOrders.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.json(doc);
@@ -28,10 +28,10 @@ exports.updateManageOrders = async (req, res) => {
   }
 };
 
-exports.deleteManageOrders = async (req, res) => {
+exports.remove = async (req, res) => {
   try {
     await ManageOrders.findByIdAndDelete(req.params.id);
-    res.json({ message: "ManageOrders deleted" });
+    res.json({ message: "Deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
