@@ -17,7 +17,6 @@ const __dirname = path.dirname(__filename);
 // Middleware
 app.use(express.json());
 
-// Allow ALL origins for CORS
 app.use(cors({
   origin: '*',
   credentials: true,
@@ -34,10 +33,10 @@ mongoose.connect(process.env.MONGO_URI, {
      IMPORT ROUTES
 ============================ */
 
-// ERP Modules
+// ERP Routes
 import clientRoutes from './routes/clientRoutes.js';
-import createInvoiceRoutes from './routes/createInvoice.js'; // ✅ createInvoice.js route
-import viewInvoicesRoutes from './routes/viewInvoice.js';   // ✅ viewInvoice.js route
+import createInvoiceRoutes from './routes/createInvoice.js'; // ✅ Includes /create
+import viewInvoicesRoutes from './routes/viewInvoice.js';
 import paymentEntryRoutes from './routes/paymentEntryRoutes.js';
 import productRoutes from './routes/productRoutes.js';
 import purchaseOrderRoutes from './routes/purchaseOrderRoutes.js';
@@ -47,7 +46,7 @@ import stockOutRoutes from './routes/stockOutRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import vendorRoutes from './routes/vendorRoutes.js';
 
-// Supplier Portal Modules
+// Supplier Portal Routes
 import acknowledgeSchedulesRoutes from './routes/supplierPortal/acknowledgeSchedulesRoutes.js';
 import agreementsRoutes from './routes/supplierPortal/agreementsRoutes.js';
 import createASBNRoutes from './routes/supplierPortal/createASBNRoutes.js';
@@ -73,8 +72,8 @@ import viewReceiptsRoutes from './routes/supplierPortal/viewReceiptsRoutes.js';
 
 // ERP Routes
 app.use('/api/client', clientRoutes);
-app.use('/api/invoice', createInvoiceRoutes);   // ✅ Custom create invoice
-app.use('/api/invoice/view', viewInvoicesRoutes);      // ✅ Custom view invoice
+app.use('/api/invoice', createInvoiceRoutes); // ✅ /api/invoice/create
+app.use('/api/invoice/view', viewInvoicesRoutes);
 app.use('/api/payment-entry', paymentEntryRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/purchase-orders', purchaseOrderRoutes);
