@@ -1,4 +1,4 @@
-const PurchaseOrder = require("../models/PurchaseOrder");
+const PurchaseOrder = require("../models/Purchaseorder");
 
 exports.addPurchaseOrder = async (req, res) => {
   try {
