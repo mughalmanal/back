@@ -1,14 +1,18 @@
 const mongoose = require("mongoose");
 
-const OrdersViewSchema = new mongoose.Schema({
-  // define your schema fields here
-  field1: String,
-  field2: String,
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  }
-});
+const ordersViewSchema = new mongoose.Schema({
+  orderNumber: { type: String },
+  supplier: { type: String },
+  orderDate: { type: Date },
+  items: [
+    {
+      product: String,
+      quantity: Number,
+      price: Number,
+    },
+  ],
+  status: { type: String },
+  notes: String,
+}, { timestamps: true });
 
-const OrdersView = mongoose.model("OrdersView", OrdersViewSchema);
-module.exports = { OrdersView };
+module.exports = mongoose.model("OrdersView", ordersViewSchema);
