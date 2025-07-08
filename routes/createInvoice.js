@@ -1,15 +1,34 @@
-import express from "express";
-import {
-  createInvoice,
-  getInvoiceById
-} from "../controllers/createInvoice.js";
-
+const express = require("express");
 const router = express.Router();
+const {
+  addInvoice,
+  getInvoices,
+  updateInvoice,
+  deleteInvoice,
+  exportToCSV,
+  exportToPrint,
+  exportToPDF
+} = require("../controllers/invoiceController");
 
-// ✅ Create invoice → POST /api/invoice/create
-router.post("/create", createInvoice);
+// ➕ Add Invoice
+router.post("/add", addInvoice);
 
-// ✅ Get invoice by ID → GET /api/invoice/id/:id
-router.get("/id/:id", getInvoiceById);
+// 📃 Get All Invoices
+router.get("/", getInvoices);
 
-export default router;
+// 📝 Update Invoice
+router.put("/:id", updateInvoice);
+
+// ❌ Delete Invoice
+router.delete("/:id", deleteInvoice);
+
+// 📤 Export to CSV
+router.get("/export/csv", exportToCSV);
+
+// 🖨 Export for Print
+router.get("/export/print", exportToPrint);
+
+// 🧾 Export to PDF
+router.get("/export/pdf", exportToPDF);
+
+module.exports = router;
