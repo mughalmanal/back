@@ -1,105 +1,34 @@
 const express = require("express");
 const router = express.Router();
-const Client = require("../models/Client");
-const { Parser } = require("json2csv");
-const PDFDocument = require("pdfkit");
+const {
+  addClient,
+  getClients,
+  updateClient,
+  deleteClient,
+  exportToCSV,
+  exportToPrint,
+  exportToPDF,
+} = require("../controllers/clientController");
 
-// ➕ Add Client
-router.post("/add", async (req, res) => {
-  try {
-    const client = new Client(req.body);
-    await client.save();
-    res.status(201).json(client);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
+// ➕ Add a new client
+router.post("/add", addClient);
 
-// 📃 Get All Clients
-router.get("/", async (req, res) => {
-  try {
-    const clients = await Client.find().sort({ createdAt: -1 });
-    res.json(clients);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+// 📃 Get all clients
+router.get("/", getClients);
 
-// 📝 Update Client
-router.put("/:id", async (req, res) => {
-  try {
-    const updated = await Client.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.json(updated);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
+// 📝 Update client by ID
+router.put("/:id", updateClient);
 
-// ❌ Delete Client
-router.delete("/:id", async (req, res) => {
-  try {
-    await Client.findByIdAndDelete(req.params.id);
-    res.json({ message: "Client deleted successfully." });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+// ❌ Delete client by ID
+router.delete("/:id", deleteClient);
 
-// 📤 Export to CSV
-router.get("/export/csv", async (req, res) => {
-  try {
-    const clients = await Client.find();
-    const fields = ["name", "phone", "email", "address", "type", "cnic", "productBought", "price"];
-    const parser = new Parser({ fields });
-    const csv = parser.parse(clients);
+// 📤 Export all clients to CSV
+router.get("/export/csv", exportToCSV);
 
-    res.header("Content-Type", "text/csv");
-    res.attachment("clients.csv");
-    return res.send(csv);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+// 🖨 Export all clients for print view
+router.get("/export/print", exportToPrint);
 
-// 🖨 Export to Print JSON
-router.get("/export/print", async (req, res) => {
-  try {
-    const clients = await Client.find();
-    res.json({ printData: clients });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// 🧾 Export to PDF
-router.get("/export/pdf", async (req, res) => {
-  try {
-    const clients = await Client.find();
-    const doc = new PDFDocument();
-
-    res.setHeader("Content-Type", "application/pdf");
-    res.setHeader("Content-Disposition", "attachment; filename=clients.pdf");
-
-    doc.pipe(res);
-    doc.fontSize(20).text("Clients List", { align: "center" });
-    doc.moveDown();
-
-    clients.forEach((client, index) => {
-      doc.fontSize(12).text(`${index + 1}. Name: ${client.name}`);
-      doc.text(`   Phone: ${client.phone}`);
-      doc.text(`   Email: ${client.email}`);
-      doc.text(`   Address: ${client.address}`);
-      doc.text(`   Type: ${client.type}`);
-      doc.text(`   CNIC: ${client.cnic}`);
-      doc.text(`   Product Bought: ${client.productBought}`);
-      doc.text(`   Price: Rs. ${client.price}`);
-      doc.moveDown();
-    });
-
-    doc.end();
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+// 🧾 Export all clients to PDF
+router.get("/export/pdf", exportToPDF);
 
 module.exports = router;
